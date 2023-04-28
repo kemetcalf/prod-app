@@ -15,16 +15,29 @@ const photos = [
 
 function App() {
 	// 3.4: form state
-	const [input, setInput] = useState();
+	// 3.5: inputs obj given title, file, path
+	const [inputs, setInputs] = useState({ title: null, file: null, path: null });
 	const [items, setItems] = useState(photos);
 	// 3.3: conditional rendering prop/fn
 	const [isCollapsed, collapse] = useState(false);
 
-	// 3.4: form state handlers
-	const handleOnChange = (e) => setInput(e.target.value);
+	// 3.4: form state handlers handleOnChange and handleOnSubmit
+	// 3.5: handleOnChange given conditional state updating based on field name attr (e.target.name)- see input.name in UploadForm
+	const handleOnChange = (e) => {
+		if (e.target.name === "file") {
+			setInputs({
+				...inputs,
+				file: e.target.files[0],
+				path: URL.createObjectURL(e.target.files[0]),
+			});
+		} else {
+			setInputs({ ...inputs, title: e.target.value });
+		}
+	};
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
-		setItems([input, ...items]);
+		// 3.5 inputs.path adds the specific path to access img, instead of just inputs obj (will not display image)
+		setItems([inputs.path, ...items]);
 	};
 	// 3.3: conditional rendering state toggler fn
 	const toggle = () => collapse(!isCollapsed);
