@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Card from "./components/Card";
 import UploadForm from "./components/UploadForm";
@@ -14,12 +14,15 @@ const photos = [
 ];
 
 function App() {
+	const [count, setCount] = useState();
 	// 3.4: form state
 	// 3.5: inputs obj given title, file, path
 	const [inputs, setInputs] = useState({ title: null, file: null, path: null });
 	const [items, setItems] = useState(photos);
 	// 3.3: conditional rendering prop/fn
 	const [isCollapsed, collapse] = useState(false);
+	// 3.3: conditional rendering state toggler fn
+	const toggle = () => collapse(!isCollapsed);
 
 	// 3.4: form state handlers handleOnChange and handleOnSubmit
 	// 3.5: handleOnChange given conditional state updating based on field name attr (e.target.name)- see input.name in UploadForm
@@ -39,8 +42,12 @@ function App() {
 		// 3.5 inputs.path adds the specific path to access img, instead of just inputs obj (will not display image)
 		setItems([inputs.path, ...items]);
 	};
-	// 3.3: conditional rendering state toggler fn
-	const toggle = () => collapse(!isCollapsed);
+
+	// takes callback fn and list of dependencies
+	useEffect(() => {
+		setCount(`You have ${items.length} image${items.length > 1 ? "s" : ""}`);
+	}, [items]);
+
 	return (
 		<>
 			<Navbar />
@@ -57,6 +64,7 @@ function App() {
 					onChange={handleOnChange}
 					onSubmit={handleOnSubmit}
 				/>
+				{count}
 				<h1>Gallery</h1>
 				<div className="row">
 					{items.map((photo) => (
