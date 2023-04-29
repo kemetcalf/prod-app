@@ -41,6 +41,8 @@ function App() {
 		e.preventDefault();
 		// 3.5 inputs.path adds the specific path to access img, instead of just inputs obj (will not display image)
 		setItems([inputs.path, ...items]);
+		setInputs({ title: null, file: null, path: null });
+		collapse(false);
 	};
 
 	// takes callback fn and list of dependencies
