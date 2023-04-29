@@ -58,6 +58,8 @@ function App() {
 				</button>
 				<div className="clearfix mb-4"></div>
 				<UploadForm
+					// 3.7: pass the inputs arr to form
+					inputs={inputs}
 					// 3.3: conditional rendering prop/fn
 					isVisible={isCollapsed}
 					// 3.4: form state handlers passed to form

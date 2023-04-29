@@ -1,4 +1,9 @@
-const UploadForm = ({ isVisible, onChange, onSubmit }) => {
+import { useMemo } from "react";
+
+const UploadForm = ({ inputs, isVisible, onChange, onSubmit }) => {
+	const isDisabled = useMemo(() => {
+		return !!Object.values(inputs).some((input) => !input);
+	}, [inputs]);
 	return (
 		// 3.3: conditional rendering prop/fn
 		// short circuit version; also works as ternary e.g. <condition> ? <renderthis> : <renderthat>/null
@@ -32,7 +37,11 @@ const UploadForm = ({ isVisible, onChange, onSubmit }) => {
 								onChange={onChange}
 							/>
 						</div>
-						<button type="submit" className="btn btn-success float-end">
+						<button
+							type="submit"
+							className="btn btn-success float-end"
+							disabled={isDisabled}
+						>
 							Save changes
 						</button>
 					</form>
