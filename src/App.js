@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer } from "react";
+import { useEffect, useState, useReducer, useMemo } from "react";
 import Layout from "./components/Layout";
 import Card from "./components/Card";
 
@@ -52,8 +52,6 @@ function reducer(state, action) {
 function App() {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
-	const [count, setCount] = useState();
-
 	// 3.3: conditional rendering state toggler fn
 	const toggle = (bool) => dispatch({ type: "collapse", payload: { bool } });
 
@@ -72,11 +70,10 @@ function App() {
 
 	useEffect(() => {}, [state.items]);
 
-	// takes callback fn and list of dependencies
-	useEffect(() => {
-		setCount(
-			`You have ${state.items.length} image${state.items.length > 1 ? "s" : ""}`
-		);
+	const count = useMemo(() => {
+		return `You have ${state.items.length} image${
+			state.items.length > 1 ? "s" : ""
+		}`;
 	}, [state.items]);
 
 	return (
