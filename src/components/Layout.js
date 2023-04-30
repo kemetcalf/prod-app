@@ -5,7 +5,7 @@ function Layout({ children, state, onChange, onSubmit, toggle }) {
 	return (
 		<>
 			<Navbar />
-			<div className="container text-center mt-5">
+			<div className="container mt-5">
 				{/* 3.3: conditional rendering state toggler button */}
 				<button
 					className="btn btn-success float-end"

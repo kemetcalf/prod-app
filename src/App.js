@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer, useMemo } from "react";
+import { useEffect, useReducer, useMemo } from "react";
 import Layout from "./components/Layout";
 import Card from "./components/Card";
 
@@ -83,7 +83,7 @@ function App() {
 			onSubmit={handleOnSubmit}
 			toggle={toggle}
 		>
-			<h1>Gallery</h1>
+			<h1 className="text-center">Gallery</h1>
 			{count}
 			<div className="row">
 				{state.items.map((photo, index) => (
