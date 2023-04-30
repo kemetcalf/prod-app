@@ -31,8 +31,8 @@ function reducer(state, action) {
 			return {
 				...state,
 				items: [state.inputs, ...state.items],
-				// count: state.items.length + 1,
-				// inputs: { title: null, file: null, path: null },
+				count: state.items.length + 1,
+				inputs: { title: null, file: null, path: null },
 			};
 		case "setInputs":
 			return {
