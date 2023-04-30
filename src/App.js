@@ -1,7 +1,7 @@
 import { useEffect, useState, useReducer } from "react";
-import Navbar from "./components/Navbar";
+import Layout from "./components/Layout";
 import Card from "./components/Card";
-import UploadForm from "./components/UploadForm";
+
 import "./App.css";
 
 const photos = [];
@@ -31,6 +31,8 @@ function reducer(state, action) {
 			return {
 				...state,
 				items: [state.inputs, ...state.items],
+				// count: state.items.length + 1,
+				// inputs: { title: null, file: null, path: null },
 			};
 		case "setInputs":
 			return {
@@ -68,7 +70,6 @@ function App() {
 		toggle(!state.isCollapsed);
 	};
 
-	// TODO: Hard-coded photos not rendering; new image rendering, but not affecting state count; state below goofy
 	useEffect(() => {}, [state.items]);
 
 	// takes callback fn and list of dependencies
@@ -79,35 +80,20 @@ function App() {
 	}, [state.items]);
 
 	return (
-		<>
-			<Navbar />
-			<div className="container text-center mt-5">
-				{/* 3.3: conditional rendering state toggler button */}
-				<button
-					className="btn btn-success float-end"
-					onClick={() => toggle(!state.isCollapsed)}
-				>
-					{state.isCollapsed ? "Close" : "+ Add"}
-				</button>
-				<div className="clearfix mb-4"></div>
-				<UploadForm
-					// 3.7: pass the inputs arr to form
-					inputs={state.inputs}
-					// 3.3: conditional rendering prop/fn
-					isVisible={state.isCollapsed}
-					// 3.4: form state handlers passed to form
-					onChange={handleOnChange}
-					onSubmit={handleOnSubmit}
-				/>
-				<h1>Gallery</h1>
-				{count}
-				<div className="row">
-					{state.items.map((photo, index) => (
-						<Card key={index} src={photo.path} />
-					))}
-				</div>
+		<Layout
+			state={state}
+			onChange={handleOnChange}
+			onSubmit={handleOnSubmit}
+			toggle={toggle}
+		>
+			<h1>Gallery</h1>
+			{count}
+			<div className="row">
+				{state.items.map((photo, index) => (
+					<Card key={index} src={photo.path} />
+				))}
 			</div>
-		</>
+		</Layout>
 	);
 }
 
