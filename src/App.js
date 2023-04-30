@@ -86,8 +86,8 @@ function App() {
 			<h1 className="text-center">Gallery</h1>
 			{count}
 			<div className="row">
-				{state.items.map((photo, index) => (
-					<Card key={index} src={photo.path} />
+				{state.items.map((item, index) => (
+					<Card key={index} {...item} />
 				))}
 			</div>
 		</Layout>
