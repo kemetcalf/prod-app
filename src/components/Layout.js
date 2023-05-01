@@ -1,7 +1,11 @@
 import Navbar from "./Navbar";
 import UploadForm from "./UploadForm";
+import { Context } from "../context";
+import { useContext } from "react";
 
-function Layout({ children, state, onChange, onSubmit, toggle }) {
+function Layout({ children }) {
+	const { dispatch, state } = useContext(Context);
+	const toggle = (bool) => dispatch({ type: "collapse", payload: { bool } });
 	return (
 		<>
 			<Navbar />
@@ -14,12 +18,7 @@ function Layout({ children, state, onChange, onSubmit, toggle }) {
 					{state.isCollapsed ? "Close" : "+ Add"}
 				</button>
 				<div className="clearfix mb-4"></div>
-				<UploadForm
-					inputs={state.inputs}
-					isVisible={state.isCollapsed}
-					onChange={onChange}
-					onSubmit={onSubmit}
-				/>
+				<UploadForm inputs={state.inputs} isVisible={state.isCollapsed} />
 				{children}
 			</div>
 		</>

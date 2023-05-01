@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useMemo, useContext } from "react";
+import { useEffect, useMemo, useContext } from "react";
 import Layout from "./components/Layout";
 import Card from "./components/Card";
 import { Context } from "./context";
@@ -6,21 +6,10 @@ import "./App.css";
 
 // Presentation
 function App() {
-	const { dispatch, state } = useContext(Context);
-
-	// 3.3: conditional rendering state toggler fn
-	const toggle = (bool) => dispatch({ type: "collapse", payload: { bool } });
+	const { state } = useContext(Context);
 
 	// 3.4: form state handlers handleOnChange and handleOnSubmit
 	// 3.5: handleOnChange given conditional state updating based on field name attr (e.target.name)- see input.name in UploadForm
-	const handleOnChange = (e) =>
-		dispatch({ type: "setInputs", payload: { value: e } });
-
-	const handleOnSubmit = (e) => {
-		e.preventDefault();
-		dispatch({ type: "setItem" });
-		toggle(!state.isCollapsed);
-	};
 
 	useEffect(() => {}, [state.items]);
 
@@ -31,12 +20,7 @@ function App() {
 	}, [state.items]);
 
 	return (
-		<Layout
-			state={state}
-			onChange={handleOnChange}
-			onSubmit={handleOnSubmit}
-			toggle={toggle}
-		>
+		<Layout>
 			<h1 className="text-center">Gallery</h1>
 			{count}
 			<div className="row">
