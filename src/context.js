@@ -1,6 +1,10 @@
 import { createContext, useReducer } from "react";
 
-const Context = createContext();
+// 5.3 Challenge: Subscribe every component to global states to apply side effects and allow UI changes accordingly
+// e.g allow UploadForm to subscribe to context changes instead of passing from App to Layout to UploadForm
+
+// logic
+export const Context = createContext();
 
 const photos = [];
 
