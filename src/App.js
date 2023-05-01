@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useMemo } from "react";
 import Layout from "./components/Layout";
 import Card from "./components/Card";
+import Provider from "./context";
 
 import "./App.css";
 
