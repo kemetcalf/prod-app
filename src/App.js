@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useContext } from "react";
+import app from "./lib/firebase.config";
 import Layout from "./components/Layout";
 import Card from "./components/Card";
 import { Context } from "./context";
@@ -8,16 +9,16 @@ import "./App.css";
 function App() {
 	const { state } = useContext(Context);
 
-	// 3.4: form state handlers handleOnChange and handleOnSubmit
-	// 3.5: handleOnChange given conditional state updating based on field name attr (e.target.name)- see input.name in UploadForm
-
-	useEffect(() => {}, [state.items]);
-
 	const count = useMemo(() => {
 		return `You have ${state.items.length} image${
 			state.items.length > 1 ? "s" : ""
 		}`;
 	}, [state.items]);
+
+	// test to return firebase object on page render; see firebase.config.js
+	useEffect(() => {
+		app();
+	}, []);
 
 	return (
 		<Layout>

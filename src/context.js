@@ -17,6 +17,8 @@ const initialState = {
 	isCollapsed: false,
 };
 
+// 3.4: form state handlers handleOnChange and handleOnSubmit
+// 3.5: handleOnChange given conditional state updating based on field name attr (e.target.name)- see input.name in UploadForm
 const handleOnChange = (state, e) => {
 	if (e.target.name === "file") {
 		return {
