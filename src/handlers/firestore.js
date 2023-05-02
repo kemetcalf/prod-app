@@ -1,4 +1,4 @@
-import { doc, setDoc, serverTimestamp } from "firebase/firestore.js";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../lib/firebase.config";
 
 const Firestore = {
