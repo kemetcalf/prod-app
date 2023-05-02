@@ -5,11 +5,11 @@ import Layout from "./components/Layout";
 import Card from "./components/Card";
 import "./App.css";
 
-const { readDocs } = Firestore;
+// const { readDocs } = Firestore;
 
 // Presentation
 function App() {
-	const { state } = useContext(Context);
+	const { state, read } = useContext(Context);
 
 	const count = useMemo(() => {
 		return `You have ${state.items.length} image${
@@ -18,7 +18,7 @@ function App() {
 	}, [state.items]);
 
 	useEffect(() => {
-		readDocs().then(console.log);
+		read();
 	}, []);
 
 	return (

@@ -1,7 +1,7 @@
 import { createContext, useReducer } from "react";
+import Firestore from "./handlers/firestore";
 
-// 5.3 Challenge: Subscribe every component to global states to apply side effects and allow UI changes accordingly
-// e.g allow UploadForm to subscribe to context changes instead of passing from App to Layout to UploadForm
+const { readDocs } = Firestore;
 
 // logic
 export const Context = createContext();
@@ -40,6 +40,12 @@ function reducer(state, action) {
 				count: state.items.length + 1,
 				inputs: { title: null, file: null, path: null },
 			};
+		case "setItems":
+			return {
+				...state,
+				items: action.payload.items,
+			};
+
 		case "setInputs":
 			return {
 				...state,
@@ -57,8 +63,14 @@ function reducer(state, action) {
 
 const Provider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
+	const read = async () => {
+		const items = await readDocs("stocks");
+		dispatch({ type: "setItems", payload: { items } });
+	};
 	return (
-		<Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>
+		<Context.Provider value={{ state, dispatch, read }}>
+			{children}
+		</Context.Provider>
 	);
 };
 export default Provider;
