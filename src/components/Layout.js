@@ -5,6 +5,7 @@ import { useContext } from "react";
 
 function Layout({ children }) {
 	const { dispatch, state } = useContext(Context);
+	const { isCollapsed: isVisible, inputs } = state; // destructuring the current state
 	const toggle = (bool) => dispatch({ type: "collapse", payload: { bool } });
 	return (
 		<>
@@ -13,12 +14,12 @@ function Layout({ children }) {
 				{/* 3.3: conditional rendering state toggler button */}
 				<button
 					className="btn btn-success float-end"
-					onClick={() => toggle(!state.isCollapsed)}
+					onClick={() => toggle(!isVisible)}
 				>
-					{state.isCollapsed ? "Close" : "+ Add"}
+					{isVisible ? "Close" : "+ Add"}
 				</button>
 				<div className="clearfix mb-4"></div>
-				<UploadForm inputs={state.inputs} isVisible={state.isCollapsed} />
+				<UploadForm inputs={inputs} isVisible={isVisible} />
 				{children}
 			</div>
 		</>
