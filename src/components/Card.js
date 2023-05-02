@@ -16,8 +16,11 @@ function Card({ path, title, createdAt }) {
 						backgroundRepeat: "no-repeat",
 					}}
 				></div>
-				<h5 className="text-center">{title}</h5>
-				<p>{timestamp}</p>
+				<h5 className="text-center mt-1">{title}</h5>
+				<div className="d-flex justify-content-between p-2">
+					<p>{timestamp}</p>
+					<p>@username</p>
+				</div>
 			</div>
 		</div>
 	);
