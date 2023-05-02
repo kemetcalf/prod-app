@@ -2,8 +2,8 @@ import { useMemo } from "react";
 
 function Card({ path, title, createdAt }) {
 	const timestamp = useMemo(() => {
-		const date = new Date(createdAt.seconds * 1000);
-		return `${date}`;
+		const date = `${new Date(createdAt.seconds * 1000)}`.split(" ");
+		return `${date[1]} ${date[2]} ${date[3]}`;
 	}, []);
 	return (
 		<div className="col mb-5">
