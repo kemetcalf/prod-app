@@ -1,8 +1,11 @@
-import { useMemo, useContext } from "react";
+import { useMemo, useContext, useEffect } from "react";
 import { Context } from "./context";
+import Firestore from "./handlers/firestore.js";
 import Layout from "./components/Layout";
 import Card from "./components/Card";
 import "./App.css";
+
+const { readDocs } = Firestore;
 
 // Presentation
 function App() {
@@ -13,6 +16,10 @@ function App() {
 			state.items.length > 1 ? "s" : ""
 		}`;
 	}, [state.items]);
+
+	useEffect(() => {
+		readDocs().then(console.log);
+	}, []);
 
 	return (
 		<Layout>
