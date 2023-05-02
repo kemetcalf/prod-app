@@ -4,7 +4,7 @@ import Firestore from "../handlers/firestore.js";
 import Storage from "../handlers/storage";
 
 const { writeDoc } = Firestore;
-const { uploadFile } = Storage;
+const { uploadFile, downloadFile } = Storage;
 
 const Preview = () => {
 	const { state } = useContext(Context);
@@ -37,12 +37,14 @@ const UploadForm = () => {
 
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
-		uploadFile(state.inputs).then((media) => {
-			// debugger;
-			writeDoc(inputs, "stocks").then(console.log);
-			dispatch({ type: "setItem" });
-			dispatch({ type: "collapse", payload: { bool: false } });
-		});
+		uploadFile(state.inputs)
+			.then(downloadFile)
+			.then((url) => {
+				writeDoc({ ...inputs, path: url }, "stocks").then(() => {
+					dispatch({ type: "setItem" });
+					dispatch({ type: "collapse", payload: { bool: false } });
+				});
+			});
 	};
 
 	const isDisabled = useMemo(() => {
