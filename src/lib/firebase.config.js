@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_API_KEY,
@@ -14,5 +15,7 @@ const firebaseConfig = {
 // Initialize Firebase
 // test to check for required firebase config by looking for missing config obj or apiKey, returns firebase object initialized
 const app = initializeApp(firebaseConfig);
-export const storage = getStorage(app);
 export const db = getFirestore(app);
+export const storage = getStorage(app);
+export const auth = getAuth(app);
+export default app;
