@@ -19,4 +19,5 @@ const FirebaseAuth = {
 			.catch(console.error);
 	},
 };
+
 export default FirebaseAuth;

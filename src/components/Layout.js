@@ -1,6 +1,6 @@
 import Navbar from "./Navbar";
 import UploadForm from "./UploadForm";
-import { Context } from "../context";
+import { Context } from "../context/FirestoreContext";
 import { useContext } from "react";
 
 function Layout({ children }) {
