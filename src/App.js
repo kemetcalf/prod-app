@@ -1,6 +1,7 @@
 import { useMemo, useContext, useEffect } from "react";
 import { Context } from "./context/FirestoreContext";
-import Firestore from "./handlers/firestore.js";
+// import Firestore from "./handlers/firestore.js";
+import { useAuthContext } from "./context/AuthContext";
 import Layout from "./components/Layout";
 import Card from "./components/Card";
 import "./App.css";
@@ -10,6 +11,7 @@ import "./App.css";
 // Presentation
 function App() {
 	const { state, read } = useContext(Context);
+	const { authenticate } = useAuthContext();
 
 	const count = useMemo(() => {
 		return `You have ${state.items.length} image${
@@ -19,6 +21,7 @@ function App() {
 
 	useEffect(() => {
 		read();
+		authenticate();
 	}, []);
 
 	return (

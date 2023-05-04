@@ -1,6 +1,93 @@
-import Navigation from "./Navigation";
-import Search from "./Search";
-import Dropdown from "./Dropdown";
+import { useAuthContext } from "../context/AuthContext";
+
+const LogIn = () => {
+	const { login, currentUser } = useAuthContext();
+	return (
+		!currentUser && (
+			<button type="button" className="btn btn-warning" onClick={login}>
+				Login
+			</button>
+		)
+	);
+};
+
+const LogOut = () => {
+	const { logout, currentUser } = useAuthContext();
+	return (
+		!!currentUser && (
+			<button type="button" className="btn btn-danger" onClick={logout}>
+				LogOut
+			</button>
+		)
+	);
+};
+
+function Dropdown() {
+	const { currentUser } = useAuthContext();
+	return (
+		<ul className="navbar-nav mb-2 mb-lg-0">
+			{" "}
+			<li className="nav-item dropdown">
+				<a
+					className="nav-link dropdown-toggle"
+					href="#"
+					id="navbarDropdown"
+					role="button"
+					data-bs-toggle="dropdown"
+					aria-expanded="false"
+				>
+					Login
+				</a>
+				<ul
+					className="dropdown-menu dropdown-menu-end"
+					aria-labelledby="navbarDropdown"
+				>
+					<li>
+						<a className="dropdown-item text-center" href="#">
+							Profile
+						</a>
+						<li>
+							<hr className="dropdown divider" />
+						</li>
+					</li>
+					<div className="d-flex justify-content-center">
+						<LogIn />
+						<LogOut />
+					</div>
+				</ul>
+			</li>
+		</ul>
+	);
+}
+
+function Navigation() {
+	return (
+		<ul className="navbar-nav me-auto mb-2 mb-lg-0">
+			{/* remove all links except HOME */}
+			<li className="nav-item">
+				<a className="nav-link active" aria-current="page" href="#">
+					Home
+				</a>
+			</li>
+		</ul>
+	);
+}
+
+function Search() {
+	return (
+		<form className="d-flex">
+			<input
+				className="form-control me-2"
+				type="search"
+				placeholder="Search"
+				aria-label="Search"
+			/>
+			<button className="btn btn-outline-success" type="submit">
+				Search
+			</button>
+		</form>
+	);
+}
 
 function Navbar() {
 	return (
@@ -21,11 +108,8 @@ function Navbar() {
 					<span className="navbar-toggler-icon"></span>
 				</button>
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
-					{/* pages to navigate to */}
 					<Navigation />
-					{/* Navbar search field */}
 					<Search />
-					{/* Actual dropdown menu */}
 					<Dropdown />
 				</div>
 			</div>
