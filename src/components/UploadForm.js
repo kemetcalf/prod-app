@@ -30,7 +30,7 @@ const Preview = () => {
 };
 
 const UploadForm = () => {
-	const { dispatch, state } = useContext(Context);
+	const { dispatch, state, read } = useContext(Context);
 	const { currentUser } = useAuthContext();
 	// below destructures the current state
 	const { isCollapsed: isVisible, inputs } = state;
@@ -50,7 +50,7 @@ const UploadForm = () => {
 					{ ...inputs, path: url, user: username.toLowerCase() },
 					"stocks"
 				).then(() => {
-					dispatch({ type: "setItem" });
+					read();
 					dispatch({ type: "collapse", payload: { bool: false } });
 				});
 			});
