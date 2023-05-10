@@ -4,13 +4,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import Layout from "./components/Layout";
+import Stocks from "./components/Stocks";
 import reportWebVitals from "./reportWebVitals";
 import Provider from "./context/FirestoreContext";
 import AuthProvider from "./context/AuthContext";
-
-function Stocks() {
-	return <h1>My Stock Images</h1>;
-}
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

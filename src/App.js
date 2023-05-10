@@ -3,6 +3,7 @@ import { Context } from "./context/FirestoreContext";
 // import Firestore from "./handlers/firestore.js";
 import { useAuthContext } from "./context/AuthContext";
 import Card from "./components/Card";
+import List from "./components/List";
 import "./App.css";
 
 // const { readDocs } = Firestore;
@@ -27,11 +28,7 @@ function App() {
 		<>
 			<h1 className="text-center">Gallery</h1>
 			{count}
-			<div className="row">
-				{state.items.map((item, index) => (
-					<Card key={index} {...item} />
-				))}
-			</div>
+			<List items={state.items} />
 		</>
 	);
 }
