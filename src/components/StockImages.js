@@ -10,7 +10,7 @@ const StockImages = () => {
 	const items = useMemo(() => {
 		const filtered = state.items.filter((item) => {
 			const username = currentUser?.displayName.split(" ").join("");
-			return item.user === username.toLowerCase();
+			return item.user === username?.toLowerCase();
 		});
 		return currentUser ? filtered : [];
 	}, [state.items, currentUser]);
