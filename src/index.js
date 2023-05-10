@@ -5,6 +5,7 @@ import "./index.css";
 import App from "./App";
 import Layout from "./components/Layout";
 import StockImages from "./components/StockImages";
+import Single from "./components/Single";
 import reportWebVitals from "./reportWebVitals";
 import Provider from "./context/FirestoreContext";
 import AuthProvider, { useAuthContext } from "./context/AuthContext";
@@ -15,6 +16,7 @@ function AppRoutes() {
 	return (
 		<Routes>
 			<Route path="/" exact element={<App />} />
+			<Route path="/images/:id" element={<Single />} />
 			{currentUser && <Route path="/stockimages" element={<StockImages />} />}
 		</Routes>
 	);
