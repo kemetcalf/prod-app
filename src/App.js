@@ -2,7 +2,6 @@ import { useMemo, useContext, useEffect } from "react";
 import { Context } from "./context/FirestoreContext";
 // import Firestore from "./handlers/firestore.js";
 import { useAuthContext } from "./context/AuthContext";
-import Layout from "./components/Layout";
 import Card from "./components/Card";
 import "./App.css";
 
@@ -25,7 +24,7 @@ function App() {
 	}, []);
 
 	return (
-		<Layout>
+		<>
 			<h1 className="text-center">Gallery</h1>
 			{count}
 			<div className="row">
@@ -33,7 +32,7 @@ function App() {
 					<Card key={index} {...item} />
 				))}
 			</div>
-		</Layout>
+		</>
 	);
 }
 
