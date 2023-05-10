@@ -12,7 +12,7 @@ function Card({ path, title, createdAt, user, id }) {
 		return `${date[1]} ${date[2]} ${date[3]}`;
 	}, []);
 	return (
-		<div className="col mb-5" onClick={handleOnClick}>
+		<div className="mb-5" onClick={handleOnClick}>
 			<div className="card" style={{ width: "18rem" }}>
 				<div
 					style={{
