@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
+import { useFirestoreContext } from "../context/FirestoreContext";
 
 const LogIn = () => {
 	const { login, currentUser } = useAuthContext();

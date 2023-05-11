@@ -1,4 +1,4 @@
-import { createContext, useReducer, useContext } from "react";
+import { createContext, useReducer, useContext, useMemo } from "react";
 import Firestore from "../handlers/firestore";
 
 const { readDocs } = Firestore;
@@ -89,11 +89,16 @@ const Provider = ({ children }) => {
 
 		dispatch({ type: "filterItems", payload: { results } });
 	};
-	return (
-		<Context.Provider value={{ state, dispatch, read }}>
-			{children}
-		</Context.Provider>
-	);
+	const value = useMemo(() => {
+		return {
+			state,
+			dispatch,
+			read,
+			filterItems,
+		};
+	}, [state, dispatch, read, filterItems]);
+
+	return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 
 export const useFirestoreContext = () => {
