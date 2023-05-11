@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { useAuthContext } from "../context/AuthContext";
 
 const Profile = () => {
@@ -16,13 +17,16 @@ const Profile = () => {
 				/>
 				<ul className="list-group mx-5">
 					<li className="list-group-item">
-						<span className="fs-5 text-capitalize">name:</span> ---
+						<span className="fs-5 text-capitalize">name:</span>{" "}
+						{currentUser?.displayName}
 					</li>
 					<li className="list-group-item">
-						<span className="fs-5 text-capitalize">email:</span> ---{" "}
+						<span className="fs-5 text-capitalize">email:</span>{" "}
+						{currentUser?.email}
 					</li>
 					<li className="list-group-item">
-						<span className="fs-5 text-capitalize"></span> ---{" "}
+						{"# of images "}
+						<span className="fs-5 text-capitalize"></span>
 					</li>
 					<li className="list-group-item">
 						<span className="fs-5 text-capitalize"></span> ---{" "}

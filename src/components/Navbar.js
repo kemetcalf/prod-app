@@ -65,7 +65,7 @@ function Dropdown() {
 				>
 					<li>
 						<a className="dropdown-item text-center" href="#">
-							{username}
+							{currentUser && <Link to="/profile">{username}</Link>}
 						</a>
 						<hr className="dropdown divider" />
 					</li>
