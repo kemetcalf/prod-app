@@ -12,6 +12,7 @@ const photos = [];
 // TODO: Change isCollapsed to isOpen?
 const initialState = {
 	items: photos,
+	placeholders: photos,
 	count: photos.length,
 	inputs: { title: null, file: null, path: null },
 	isCollapsed: false,
@@ -37,13 +38,21 @@ function reducer(state, action) {
 			return {
 				...state,
 				items: [state.inputs, ...state.items],
+				placeholders: [state.inputs, ...state.items],
 				count: state.items.length + 1,
 				inputs: { title: null, file: null, path: null },
+			};
+		case "filterItems":
+			return {
+				...state,
+				items: action.payload.results,
+				placeholders: action.payload.results,
 			};
 		case "setItems":
 			return {
 				...state,
 				items: action.payload.items,
+				placeholders: action.payload.items,
 			};
 
 		case "setInputs":
@@ -66,6 +75,19 @@ const Provider = ({ children }) => {
 	const read = async () => {
 		const items = await readDocs("stocks");
 		dispatch({ type: "setItems", payload: { items } });
+	};
+	const filterItems = (input) => {
+		if (input === "" || !!input) {
+			dispatch({ type: "setItems", payload: { items: state.placeholders } });
+		}
+		let list = state.placeholders.flat();
+		let results = list.filter((item) => {
+			const name = item.title.toLowerCase();
+			const searchInput = input.toLowerCase();
+			return name.indexOf(searchInput) > -1;
+		});
+
+		dispatch({ type: "filterItems", payload: { results } });
 	};
 	return (
 		<Context.Provider value={{ state, dispatch, read }}>
