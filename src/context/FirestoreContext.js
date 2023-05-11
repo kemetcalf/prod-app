@@ -1,4 +1,10 @@
-import { createContext, useReducer, useContext, useMemo } from "react";
+import {
+	createContext,
+	useReducer,
+	useContext,
+	useMemo,
+	useCallback,
+} from "react";
 import Firestore from "../handlers/firestore";
 
 const { readDocs } = Firestore;
@@ -76,19 +82,23 @@ const Provider = ({ children }) => {
 		const items = await readDocs("stocks");
 		dispatch({ type: "setItems", payload: { items } });
 	};
-	const filterItems = (input) => {
-		if (input === "" || !!input) {
-			dispatch({ type: "setItems", payload: { items: state.placeholders } });
-		}
-		let list = state.placeholders.flat();
-		let results = list.filter((item) => {
-			const name = item.title.toLowerCase();
-			const searchInput = input.toLowerCase();
-			return name.indexOf(searchInput) > -1;
-		});
+	const filterItems = useCallback(
+		(input) => {
+			if (input === "" || !!input) {
+				dispatch({ type: "setItems", payload: { items: state.placeholders } });
+			}
+			let list = state.placeholders.flat();
+			let results = list.filter((item) => {
+				const name = item.title.toLowerCase();
+				const searchInput = input.toLowerCase();
+				return name.indexOf(searchInput) > -1;
+			});
 
-		dispatch({ type: "filterItems", payload: { results } });
-	};
+			dispatch({ type: "filterItems", payload: { results } });
+		},
+		[state.placeholders]
+	);
+
 	const value = useMemo(() => {
 		return {
 			state,
