@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 
@@ -64,9 +64,9 @@ function Dropdown() {
 					aria-labelledby="navbarDropdown"
 				>
 					<li>
-						<a className="dropdown-item text-center" href="#">
+						<div className="dropdown-item text-center" href="#">
 							{currentUser && <Link to="/profile">{username}</Link>}
-						</a>
+						</div>
 						<hr className="dropdown divider" />
 					</li>
 					<div className="d-flex justify-content-center">
@@ -88,7 +88,6 @@ function Navigation() {
 			<li className="nav-item">
 				<Link
 					className={`nav-link ${pathname === "/" ? "active" : ""}`}
-					active
 					aria-current="page"
 					to="/"
 				>
@@ -124,13 +123,20 @@ function Navigation() {
 }
 
 function Search() {
+	const [text, search] = useState(null);
+	const handleOnChange = (e) => search(e.target.value);
+	const handleOnSubmit = (e) => {
+		e.preventDefault();
+		console.log(`searching ${text}`);
+	};
 	return (
-		<form className="d-flex">
+		<form className="d-flex" onSubmit={handleOnSubmit}>
 			<input
 				className="form-control me-2"
 				type="search"
 				placeholder="Search"
 				aria-label="Search"
+				onChange={handleOnChange}
 			/>
 			<button className="btn btn-outline-success" type="submit">
 				Search
