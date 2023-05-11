@@ -52,7 +52,6 @@ function reducer(state, action) {
 			return {
 				...state,
 				items: action.payload.results,
-				placeholders: action.payload.results,
 			};
 		case "setItems":
 			return {
