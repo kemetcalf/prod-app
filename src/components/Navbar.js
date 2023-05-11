@@ -125,10 +125,14 @@ function Navigation() {
 
 function Search() {
 	const [text, search] = useState(null);
-	const handleOnChange = (e) => search(e.target.value);
+	const { filterItems: filter } = useFirestoreContext();
+	const handleOnChange = (e) => {
+		search(e.target.value);
+		filter(e.target.value);
+	};
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
-		console.log(`searching ${text}`);
+		filter(text);
 	};
 	return (
 		<form className="d-flex" onSubmit={handleOnSubmit}>
