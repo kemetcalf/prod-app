@@ -39,15 +39,9 @@ const handleOnChange = (state, e) => {
 };
 
 function reducer(state, action) {
+	console.log(action.type);
+	console.log(state.inputs);
 	switch (action.type) {
-		case "setItem":
-			return {
-				...state,
-				items: [state.inputs, ...state.items],
-				placeholders: [state.inputs, ...state.items],
-				count: state.items.length + 1,
-				inputs: { title: null, file: null, path: null },
-			};
 		case "filterItems":
 			return {
 				...state,
@@ -64,6 +58,11 @@ function reducer(state, action) {
 			return {
 				...state,
 				inputs: handleOnChange(state, action.payload.value),
+			};
+		case "clearInputs":
+			return {
+				...state,
+				inputs: { title: null, file: null, path: null },
 			};
 		case "collapse":
 			return {
