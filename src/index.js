@@ -9,7 +9,7 @@ import Single from "./components/Single";
 import NotFound from "./components/NotFound";
 import Profile from "./components/Profile";
 import reportWebVitals from "./reportWebVitals";
-import Provider from "./context/FirestoreContext";
+import FirestoreProvider from "./context/FirestoreContext";
 import AuthProvider, { useAuthContext } from "./context/AuthContext";
 
 function AppRoutes() {
@@ -30,13 +30,13 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 	<React.StrictMode>
 		<AuthProvider>
-			<Provider>
+			<FirestoreProvider>
 				<Router>
 					<Layout>
 						<AppRoutes />
 					</Layout>
 				</Router>
-			</Provider>
+			</FirestoreProvider>
 		</AuthProvider>
 	</React.StrictMode>
 );
