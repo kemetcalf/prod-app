@@ -1,4 +1,4 @@
-import { useMemo, useContext } from "react";
+import { useMemo, useContext, useCallback, useState } from "react";
 import { Context } from "../context/FirestoreContext";
 import { useAuthContext } from "../context/AuthContext";
 import Firestore from "../handlers/firestore.js";
@@ -9,11 +9,11 @@ const { uploadFile, downloadFile } = Storage;
 
 const Preview = () => {
 	const { state } = useContext(Context);
-	const { currentUser } = useAuthContext();
 	// destructures current state
 	const {
 		inputs: { path },
 	} = state;
+
 	return (
 		path && (
 			<div
@@ -41,19 +41,17 @@ const UploadForm = () => {
 
 	const username = currentUser?.displayName.split(" ").join("");
 
-	const handleOnSubmit = (e) => {
+	const handleOnSubmit = async (e) => {
 		e.preventDefault();
-		uploadFile(state.inputs)
-			.then(downloadFile)
-			.then((url) => {
-				writeDoc(
-					{ ...inputs, path: url, user: username.toLowerCase() },
-					"stocks"
-				).then(() => {
-					read();
-					dispatch({ type: "collapse", payload: { bool: false } });
-				});
-			});
+		const uploadedFile = await uploadFile(state.inputs);
+		const url = await downloadFile(uploadedFile);
+		await writeDoc(
+			{ ...inputs, path: url, user: username.toLowerCase() },
+			"stocks"
+		);
+		await read();
+		dispatch({ type: "collapse", payload: { bool: false } });
+		dispatch({ type: "clearInputs" });
 	};
 
 	const isDisabled = useMemo(() => {
