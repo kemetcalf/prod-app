@@ -16,6 +16,12 @@ const Single = () => {
 			<div className="d-flex justify-content-center mb-5">
 				<Card {...item} />
 			</div>
+			<button type="button" class="btn btn-warning" onClick={() => {}}>
+				Edit
+			</button>
+			<button type="button" class="btn btn-danger" onClick={() => {}}>
+				Delete
+			</button>
 		</>
 	);
 };
