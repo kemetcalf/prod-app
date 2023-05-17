@@ -17,6 +17,7 @@ const photos = [];
 // isCollapsed showing false in dev tools when collapsed b/c it's set as value for isVisible attr in Layout; badly phrased/confusing
 // TODO: Change isCollapsed to isOpen?
 const initialState = {
+	id: null,
 	items: photos,
 	placeholders: photos,
 	count: photos.length,
