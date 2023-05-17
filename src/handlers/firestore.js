@@ -4,10 +4,29 @@ import {
 	serverTimestamp,
 	collection,
 	getDocs,
+	updateDoc,
+	deleteDoc,
 } from "firebase/firestore";
 import { db } from "../lib/firebase.config";
 
 const Firestore = {
+	writeDoc: (...args) => {
+		const [inputs, collection_name] = args;
+		return new Promise(async (resolve) => {
+			const randomIndex = Math.floor(Math.random() * 1000000000);
+			try {
+				const docRef = doc(db, "stocks", `${randomIndex}`);
+				await setDoc(docRef, {
+					id: randomIndex,
+					title: inputs.title,
+					path: inputs.path,
+					createdAt: serverTimestamp(),
+					user: inputs.user,
+				});
+				resolve("new doc successfully inserted");
+			} catch (e) {}
+		});
+	},
 	readDocs: (...args) => {
 		const [collection_name] = args;
 		let docs = [];
@@ -25,22 +44,22 @@ const Firestore = {
 			}
 		});
 	},
+	updateDoc: (...args) => {
+		const [inputs] = args;
 
-	writeDoc: (...args) => {
-		const [inputs, collection_name] = args;
 		return new Promise(async (resolve) => {
-			const randomIndex = Math.floor(Math.random() * 1000000000);
 			try {
-				const docRef = doc(db, "stocks", `${randomIndex}`);
-				await setDoc(docRef, {
+				const updateRef = doc(db, "stocks", inputs.id);
+				await updateDoc(updateRef, {
 					title: inputs.title,
-					path: inputs.path,
-					createdAt: serverTimestamp(),
-					user: inputs.user,
 				});
-				resolve("new doc successfully inserted");
-			} catch (e) {}
+			} catch (e) {
+				console.log(e);
+			}
 		});
+	},
+	deleteDoc: () => {
+		return;
 	},
 };
 
