@@ -1,4 +1,5 @@
 import { useMemo, useContext, useCallback, useState } from "react";
+// TODO:change below to useFirestoreContext?
 import { Context } from "../context/FirestoreContext";
 import { useAuthContext } from "../context/AuthContext";
 import Firestore from "../handlers/firestore.js";
@@ -33,7 +34,7 @@ const UploadForm = () => {
 	const { dispatch, state, read } = useContext(Context);
 	const { currentUser } = useAuthContext();
 	// below destructures the current state
-	const { isCollapsed: isVisible, inputs } = state;
+	const { isOpen: isVisible, inputs } = state;
 
 	const handleOnChange = (e) => {
 		dispatch({ type: "setInputs", payload: { value: e } });

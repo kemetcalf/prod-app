@@ -5,7 +5,7 @@ import { useContext } from "react";
 
 function Layout({ children }) {
 	const { dispatch, state } = useContext(Context);
-	const { isCollapsed: isVisible, inputs } = state; // destructuring the current state
+	const { isOpen: isVisible, inputs } = state; // destructuring the current state
 	const toggle = (bool) => dispatch({ type: "collapse", payload: { bool } });
 	return (
 		<>
