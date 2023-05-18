@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useFirestoreContext } from "../context/FirestoreContext";
-import Firestore from "../handlers/firestore";
+// import Firestore from "../handlers/firestore";
 import Card from "./Card";
 import UpdateForm from "./UpdateForm";
 

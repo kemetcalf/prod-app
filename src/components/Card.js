@@ -1,9 +1,18 @@
 import { useMemo } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useFirestoreContext } from "../context/FirestoreContext";
 
 function Card({ path, title, createdAt, user, id }) {
+	const { dispatch, state } = useFirestoreContext();
+	const { isOpen: isVisible } = state;
 	const navigate = useNavigate();
+
+	const toggle = (bool) => dispatch({ type: "collapse", payload: { bool } });
+
 	const handleOnClick = () => {
+		if (isVisible) {
+			toggle(!isVisible);
+		}
 		navigate(`/images/${id}`, { state: { id } });
 	};
 
@@ -11,6 +20,7 @@ function Card({ path, title, createdAt, user, id }) {
 		const date = `${new Date(createdAt?.seconds * 1000)}`.split(" ");
 		return `${date[1]} ${date[2]} ${date[3]}`;
 	}, []);
+	// TODO: Above: create 2 index array with 'created' and 'last updated' to render edits on card and remove warning?
 	return (
 		<div className="mb-5" onClick={handleOnClick}>
 			<div className="card" style={{ width: "18rem" }}>
