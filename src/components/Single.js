@@ -26,7 +26,6 @@ const Single = () => {
 			<div className="d-flex justify-content-center mb-5">
 				<Card {...item} />
 			</div>
-			<UpdateForm inputs={inputs} isVisible={isVisible} />
 			<button
 				type="button"
 				className="btn btn-warning"
@@ -37,6 +36,7 @@ const Single = () => {
 			<button type="button" className="btn btn-danger" onClick={() => {}}>
 				Delete
 			</button>
+			<UpdateForm inputs={inputs} isVisible={isVisible} />
 		</>
 	);
 };
