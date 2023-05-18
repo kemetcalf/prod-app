@@ -29,12 +29,12 @@ const Single = () => {
 			<UpdateForm inputs={inputs} isVisible={isVisible} />
 			<button
 				type="button"
-				class="btn btn-warning"
+				className="btn btn-warning"
 				onClick={() => toggle(!isVisible)}
 			>
 				Edit
 			</button>
-			<button type="button" class="btn btn-danger" onClick={() => {}}>
+			<button type="button" className="btn btn-danger" onClick={() => {}}>
 				Delete
 			</button>
 		</>
