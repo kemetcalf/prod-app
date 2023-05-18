@@ -14,13 +14,22 @@ const Single = () => {
 
 	const toggle = (bool) => dispatch({ type: "collapse", payload: { bool } });
 
-	// TODO: wrong approach; handleOnClick should render editing texts fields; then handleOnChange to setInputs; then new handleOnSubmit to updateDocs
+	const backNav = () => {
+		if (isVisible) {
+			toggle(!isVisible);
+		}
+		navigate(-1);
+		return;
+	};
+
+	// TODO: handleOnChange to setInputs
+	// TODO: new handleOnSubmit to updateDocs
 	// const handleOnClick = async (e) => {
 	// 	await updateDoc({...state.inputs, title: })
 	// }
 	return (
 		<>
-			<button className="btn btn-link" onClick={() => navigate(-1)}>
+			<button className="btn btn-link" onClick={backNav}>
 				Back
 			</button>
 			<div className="d-flex justify-content-center mb-5">
