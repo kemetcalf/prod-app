@@ -38,8 +38,8 @@ const handleOnChange = (state, e) => {
 };
 
 function reducer(state, action) {
-	console.log(action.type);
-	console.log(state.inputs);
+	// console.log(action.type);
+	// console.log(state.inputs);
 	switch (action.type) {
 		case "filterItems":
 			return {
