@@ -3,16 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useFirestoreContext } from "../context/FirestoreContext";
 
 function Card({ path, title, createdAt, user, id }) {
-	const { dispatch, state } = useFirestoreContext();
-	const { isOpen: isVisible } = state;
+	const { dispatch, state, collapseForm } = useFirestoreContext();
+
 	const navigate = useNavigate();
 
-	const toggle = (bool) => dispatch({ type: "collapse", payload: { bool } });
-
 	const handleOnClick = () => {
-		if (isVisible) {
-			toggle(!isVisible);
-		}
+		collapseForm();
 		navigate(`/images/${id}`, { state: { id } });
 	};
 
