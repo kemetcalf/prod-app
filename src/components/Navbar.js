@@ -82,15 +82,16 @@ function Dropdown() {
 
 function Navigation() {
 	const { currentUser } = useAuthContext();
+	const { collapseForm } = useFirestoreContext();
 	const { pathname } = useLocation();
 	return (
 		<ul className="navbar-nav me-auto mb-2 mb-lg-0">
-			{/* remove all links except HOME */}
 			<li className="nav-item">
 				<Link
 					className={`nav-link ${pathname === "/" ? "active" : ""}`}
 					aria-current="page"
 					to="/"
+					onClick={collapseForm}
 				>
 					Home
 				</Link>
@@ -104,6 +105,7 @@ function Navigation() {
 							}`}
 							aria-current="page"
 							to="/stockimages"
+							onClick={collapseForm}
 						>
 							My Stock Images
 						</Link>
@@ -113,6 +115,7 @@ function Navigation() {
 							className={`nav-link ${pathname === "/profile" ? "active" : ""}`}
 							aria-current="page"
 							to="/profile"
+							onClick={collapseForm}
 						>
 							Profile
 						</Link>
