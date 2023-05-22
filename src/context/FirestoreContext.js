@@ -75,10 +75,6 @@ function reducer(state, action) {
 
 const Provider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
-	const read = async () => {
-		const items = await readDocs("stocks");
-		dispatch({ type: "setItems", payload: { items } });
-	};
 	const filterItems = useCallback(
 		(input) => {
 			if (input === "" || !!input) {
@@ -97,13 +93,23 @@ const Provider = ({ children }) => {
 	);
 
 	const value = useMemo(() => {
+		const read = async () => {
+			const items = await readDocs("stocks");
+			dispatch({ type: "setItems", payload: { items } });
+		};
+		const collapseForm = () => {
+			if (state.isOpen) {
+				dispatch({ type: "collapse", payload: false });
+			}
+		};
 		return {
 			state,
 			dispatch,
 			read,
+			collapseForm,
 			filterItems,
 		};
-	}, [state, dispatch, read, filterItems]);
+	}, [state, dispatch, filterItems]);
 
 	return <Context.Provider value={value}>{children}</Context.Provider>;
 };
