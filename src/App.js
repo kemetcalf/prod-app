@@ -1,4 +1,4 @@
-import { useMemo, useContext, useEffect } from "react";
+import { useMemo, useContext } from "react";
 import { Context } from "./context/FirestoreContext";
 // import Firestore from "./handlers/firestore.js";
 import { useAuthContext } from "./context/AuthContext";
@@ -10,19 +10,13 @@ import "./App.css";
 
 // Presentation
 function App() {
-	const { dispatch, state, read } = useContext(Context);
-	const { authenticate } = useAuthContext();
+	const { dispatch, state } = useContext(Context);
 
 	const count = useMemo(() => {
 		return `You have ${state.items.length} image${
 			state.items.length > 1 ? "s" : ""
 		}`;
 	}, [state.items]);
-
-	useEffect(() => {
-		read();
-		authenticate();
-	}, []);
 
 	const { isOpen: isVisible, inputs } = state; // destructuring the current state
 	const toggle = (bool) => dispatch({ type: "collapse", payload: { bool } });
