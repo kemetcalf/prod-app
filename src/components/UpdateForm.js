@@ -12,10 +12,12 @@ const UpdateForm = () => {
 
 	const handleOnChange = (e) => {
 		dispatch({ type: "setInputs", payload: { value: e } });
+		console.log(inputs);
 	};
 
 	const updateOnSubmit = async (e) => {
 		e.preventDefault();
+		// const updatedStorFile = await
 	};
 
 	const isDisabled = useMemo(() => {

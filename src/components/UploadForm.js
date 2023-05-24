@@ -44,8 +44,8 @@ const UploadForm = () => {
 
 	const handleOnSubmit = async (e) => {
 		e.preventDefault();
-		const uploadedFile = await uploadFile(state.inputs);
-		const url = await downloadFile(uploadedFile);
+		const storageFile = await uploadFile(state.inputs);
+		const url = await downloadFile(storageFile);
 		await writeDoc(
 			{ ...inputs, path: url, user: username.toLowerCase() },
 			"stocks"

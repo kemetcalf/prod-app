@@ -52,7 +52,9 @@ const Firestore = {
 				const updateRef = doc(db, "stocks", inputs.id);
 				await updateDoc(updateRef, {
 					title: inputs.title,
+					updatedAt: serverTimestamp(),
 				});
+				resolve("doc successfully updated");
 			} catch (e) {
 				console.log(e);
 			}

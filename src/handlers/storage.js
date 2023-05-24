@@ -26,5 +26,11 @@ const Storage = {
 			}
 		});
 	},
+	updateMetadata: (media) => {
+		return new Promise(async (resolve) => {
+			try {
+			} catch {}
+		});
+	},
 };
 export default Storage;
