@@ -1,6 +1,6 @@
-import { useMemo, useContext, useCallback, useState } from "react";
+import { useMemo } from "react";
 // TODO:change below to useFirestoreContext?
-import { Context } from "../context/FirestoreContext";
+import { useFirestoreContext } from "../context/FirestoreContext";
 import { useAuthContext } from "../context/AuthContext";
 import Firestore from "../handlers/firestore.js";
 import Storage from "../handlers/storage";
@@ -9,7 +9,7 @@ const { writeDoc } = Firestore;
 const { uploadFile, downloadFile } = Storage;
 
 const Preview = () => {
-	const { state } = useContext(Context);
+	const { state } = useFirestoreContext();
 	// destructures current state
 	const {
 		inputs: { path },
@@ -31,7 +31,7 @@ const Preview = () => {
 };
 
 const UploadForm = () => {
-	const { dispatch, state, read } = useContext(Context);
+	const { dispatch, state, read } = useFirestoreContext();
 	const { currentUser } = useAuthContext();
 	// below destructures the current state
 	const { isOpen: isVisible, inputs } = state;
