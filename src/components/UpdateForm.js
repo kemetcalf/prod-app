@@ -1,13 +1,15 @@
 import { useMemo, useState } from "react";
 import { useFirestoreContext } from "../context/FirestoreContext";
 import Firestore from "../handlers/firestore";
+import Storage from "../handlers/storage";
 
 const { updateDoc } = Firestore;
+const { updateMetadataName, downloadFile } = Storage;
 
-const UpdateForm = () => {
+const UpdateForm = ({ itemTitle }) => {
 	const {
 		dispatch,
-		state: { inputs },
+		state: { inputs, items },
 	} = useFirestoreContext();
 
 	const handleOnChange = (e) => {
@@ -15,9 +17,19 @@ const UpdateForm = () => {
 		console.log(inputs);
 	};
 
+	const currentItem = items.find((item) => itemTitle === item.name);
+
 	const updateOnSubmit = async (e) => {
 		e.preventDefault();
-		// const updatedStorFile = await
+		const updateInfo = {
+			mediaToUpdate: currentItem,
+			updateContent: inputs.title,
+		};
+		const newMetaTitle = await updateMetadataName(updateInfo);
+		const url = await downloadFile(newMetaTitle);
+		console.log(newMetaTitle);
+		console.log(url);
+		// TODO:just clg the metadata and url for now to check
 	};
 
 	const isDisabled = useMemo(() => {
@@ -47,7 +59,7 @@ const UpdateForm = () => {
 					<button
 						type="submit"
 						className="btn btn-success float-end"
-						disabled={isDisabled}
+						// disabled={isDisabled}
 					>
 						Save and upload
 					</button>
