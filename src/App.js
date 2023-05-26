@@ -1,7 +1,5 @@
 import { useMemo, useContext } from "react";
 import { Context } from "./context/FirestoreContext";
-// import Firestore from "./handlers/firestore.js";
-import { useAuthContext } from "./context/AuthContext";
 import UploadForm from "./components/UploadForm";
 import List from "./components/List";
 import "./App.css";
