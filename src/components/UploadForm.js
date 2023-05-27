@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-// TODO:change below to useFirestoreContext?
 import { useFirestoreContext } from "../context/FirestoreContext";
 import { useAuthContext } from "../context/AuthContext";
 import Firestore from "../handlers/firestore.js";
