@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useFirestoreContext } from "../context/FirestoreContext";
 
 function Card({ path, title, createdAt, user, id }) {
-	const { dispatch, state, collapseForm } = useFirestoreContext();
+	const { collapseForm } = useFirestoreContext();
 
 	const navigate = useNavigate();
 

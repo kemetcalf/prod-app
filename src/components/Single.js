@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useFirestoreContext } from "../context/FirestoreContext";
-import { useState } from "react";
+import { useAuthContext } from "../context/AuthContext";
+import { useEffect, useState } from "react";
 // import Firestore from "../handlers/firestore";
 import Card from "./Card";
 import UpdateForm from "./UpdateForm";
