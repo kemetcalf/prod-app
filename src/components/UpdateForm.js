@@ -1,10 +1,9 @@
 import { useMemo, useState } from "react";
 import { useFirestoreContext } from "../context/FirestoreContext";
 import Firestore from "../handlers/firestore";
-import Storage from "../handlers/storage";
+// import Storage from "../handlers/storage";
 
 const { updateDoc } = Firestore;
-const { updateMetadataName, downloadFile } = Storage;
 
 const UpdateForm = ({ itemTitle }) => {
 	const {
@@ -17,19 +16,22 @@ const UpdateForm = ({ itemTitle }) => {
 		console.log(inputs);
 	};
 
-	const currentItem = items.find((item) => itemTitle === item.name);
+	// eslint-disable-next-line no-lone-blocks
+	{
+		/*FIXME: need to start the update fn over
+		-TODO: establish reference to db document using item data in Single view
+		-TODO: use firestore docs to write fn to update title using inputs.title
+		-TODO: pull db update fn out into firestore.js handler
+		-TODO: refactor to import and use in UpdateForm
+		-TODO: put it behind an auth check
+		-TODO: add 'last edited' timestamp attr
+		-TODO: render 'last edited' attr onto card
+		-TODO: THEN see about whether to update storage metadata
+*/
+	}
 
 	const updateOnSubmit = async (e) => {
 		e.preventDefault();
-		const updateInfo = {
-			mediaToUpdate: currentItem,
-			updateContent: inputs.title,
-		};
-		const newMetaTitle = await updateMetadataName(updateInfo);
-		const url = await downloadFile(newMetaTitle);
-		console.log(newMetaTitle);
-		console.log(url);
-		// TODO:just clg the metadata and url for now to check
 	};
 
 	const isDisabled = useMemo(() => {
@@ -42,7 +44,6 @@ const UpdateForm = ({ itemTitle }) => {
 				<form
 					className="mb-2"
 					style={{ textAlign: "left" }}
-					// 3.4: sets form input as first item in items array, updates items array state
 					onSubmit={updateOnSubmit}
 				>
 					<div className="mb-3">
@@ -52,14 +53,13 @@ const UpdateForm = ({ itemTitle }) => {
 							name="title"
 							placeholder="title"
 							aria-describedby="text"
-							// 3.4: sets form input state - link
 							onChange={handleOnChange}
 						/>
 					</div>
 					<button
 						type="submit"
 						className="btn btn-success float-end"
-						// disabled={isDisabled}
+						disabled={isDisabled}
 					>
 						Save and upload
 					</button>
