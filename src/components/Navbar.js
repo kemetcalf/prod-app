@@ -142,6 +142,7 @@ function Search() {
 			<input
 				className="form-control me-2"
 				type="search"
+				name="searchInput"
 				placeholder="Search"
 				aria-label="Search"
 				onChange={handleOnChange}
