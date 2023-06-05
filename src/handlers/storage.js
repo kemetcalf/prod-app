@@ -1,15 +1,20 @@
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../lib/firebase.config";
+import { v4 as uuidv4 } from "uuid";
 
 // Async fn sends file to storage in Cloud Firestore; see reference to storage service in firebase.config
 const Storage = {
 	uploadFile: (media) => {
 		return new Promise(async (resolve) => {
+			const newId = uuidv4();
 			try {
-				// TODO: reassign mediaRef to use media.id if it's assigned yet as a the tag of the URL
-				const mediaRef = ref(storage, `images/${media.title}`);
+				const mediaRef = ref(storage, `images/${newId}`);
+
 				uploadBytes(mediaRef, media.file).then((snapshot) => {
-					resolve({ path: snapshot.metadata.fullPath, name: media.title });
+					resolve({
+						path: snapshot.metadata.fullPath,
+						id: snapshot.metadata.name,
+					});
 				});
 			} catch (e) {
 				console.error(e);

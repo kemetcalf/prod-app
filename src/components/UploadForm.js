@@ -43,10 +43,18 @@ const UploadForm = () => {
 
 	const handleOnSubmit = async (e) => {
 		e.preventDefault();
-		const storageFile = await uploadFile(state.inputs);
+		console.log(inputs);
+		const storageFile = await uploadFile(inputs);
+		console.log(storageFile);
 		const url = await downloadFile(storageFile);
+
 		await writeDoc(
-			{ ...inputs, path: url, user: username.toLowerCase() },
+			{
+				...inputs,
+				id: storageFile.id,
+				path: url,
+				user: username.toLowerCase(),
+			},
 			"stocks"
 		);
 		await read();
@@ -57,6 +65,7 @@ const UploadForm = () => {
 	const isDisabled = useMemo(() => {
 		return !!Object.values(inputs).some((input) => !input);
 	}, [inputs]);
+
 	return (
 		// 3.3: conditional rendering prop/fn
 		// short circuit version; also works as ternary e.g. <condition> ? <renderthis> : <renderthat>/null

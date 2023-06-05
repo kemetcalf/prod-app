@@ -103,10 +103,12 @@ const Provider = ({ children }) => {
 			}
 		};
 		return {
+			// doc what all the things do, gah!
 			state,
 			dispatch,
 			read,
 			collapseForm,
+			// used in Navbar to search items array by title
 			filterItems,
 		};
 	}, [state, dispatch, filterItems]);
