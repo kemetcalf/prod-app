@@ -9,8 +9,15 @@ const Storage = {
 			const newId = uuidv4();
 			try {
 				const mediaRef = ref(storage, `images/${newId}`);
+				// const metadata = {
+				// 	customMetadata: {
+				// 	  'location': 'Yosemite, CA, USA',
+				// 	}
+				//   };
 
-				uploadBytes(mediaRef, media.file).then((snapshot) => {
+				uploadBytes(mediaRef, media.file, {
+					customMetadata: { title: media.title },
+				}).then((snapshot) => {
 					resolve({
 						path: snapshot.metadata.fullPath,
 						id: snapshot.metadata.name,
