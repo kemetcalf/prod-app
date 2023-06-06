@@ -1,11 +1,6 @@
 import { useMemo } from "react";
 import { useFirestoreContext } from "../context/FirestoreContext";
-import { useAuthContext } from "../context/AuthContext";
-import Firestore from "../handlers/firestore.js";
-import Storage from "../handlers/storage";
-
-const { writeDoc } = Firestore;
-const { uploadFile, downloadFile } = Storage;
+import useCreateNewImage from "../hooks/useCreateNewImage";
 
 const Preview = () => {
 	const { state } = useFirestoreContext();
@@ -30,36 +25,19 @@ const Preview = () => {
 };
 
 const UploadForm = () => {
-	const { dispatch, state, read } = useFirestoreContext();
-	const { currentUser } = useAuthContext();
-	// below destructures the current state
+	const createNewImage = useCreateNewImage();
+	const { dispatch, state } = useFirestoreContext();
 	const { isOpen: isVisible, inputs } = state;
 
 	const handleOnChange = (e) => {
 		dispatch({ type: "setInputs", payload: { value: e } });
 	};
 
-	const username = currentUser?.displayName.split(" ").join("");
-
+	//TODO: add loading state visual indicator
 	const handleOnSubmit = async (e) => {
 		e.preventDefault();
 		console.log(inputs);
-		const storageFile = await uploadFile(inputs);
-		console.log(storageFile);
-		const url = await downloadFile(storageFile);
-
-		await writeDoc(
-			{
-				...inputs,
-				id: storageFile.id,
-				path: url,
-				user: username.toLowerCase(),
-			},
-			"stocks"
-		);
-		await read();
-		dispatch({ type: "collapse", payload: { bool: false } });
-		dispatch({ type: "clearInputs" });
+		createNewImage();
 	};
 
 	const isDisabled = useMemo(() => {
@@ -67,8 +45,6 @@ const UploadForm = () => {
 	}, [inputs]);
 
 	return (
-		// 3.3: conditional rendering prop/fn
-		// short circuit version; also works as ternary e.g. <condition> ? <renderthis> : <renderthat>/null
 		isVisible && (
 			<>
 				<p className="display-6 text-center mb-3">Upload Stock Image</p>
@@ -77,7 +53,6 @@ const UploadForm = () => {
 					<form
 						className="mb-2"
 						style={{ textAlign: "left" }}
-						// 3.4: sets form input as first item in items array, updates items array state
 						onSubmit={handleOnSubmit}
 					>
 						<div className="mb-3">
