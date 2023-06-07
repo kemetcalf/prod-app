@@ -61,8 +61,16 @@ const Firestore = {
 	// 		}
 	// 	});
 	// },
-	deleteDoc: () => {
-		return;
+	deleteDoc: (docInfo) => {
+		return new Promise(async (resolve) => {
+			try {
+				const docRef = doc(db, "stocks", docInfo.id);
+				await deleteDoc(docRef);
+				resolve("doc successfully deleted");
+			} catch (e) {
+				console.error();
+			}
+		});
 	},
 };
 
