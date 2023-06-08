@@ -1,4 +1,9 @@
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+	ref,
+	uploadBytes,
+	getDownloadURL,
+	deleteObject,
+} from "firebase/storage";
 import { storage } from "../lib/firebase.config";
 import { v4 as uuidv4 } from "uuid";
 
@@ -9,12 +14,6 @@ const Storage = {
 			const newId = uuidv4();
 			try {
 				const mediaRef = ref(storage, `images/${newId}`);
-				// const metadata = {
-				// 	customMetadata: {
-				// 	  'location': 'Yosemite, CA, USA',
-				// 	}
-				//   };
-
 				uploadBytes(mediaRef, media.file, {
 					customMetadata: { title: media.title },
 				}).then((snapshot) => {
@@ -38,6 +37,15 @@ const Storage = {
 				console.error(e);
 			}
 		});
+	},
+	// TODO: soft delete?
+	deleteFile: (media) => {
+		const mediaRef = ref(storage, media.path);
+		deleteObject(mediaRef)
+			.then(() => {
+				console.log(media.id + "file deleted successfully");
+			})
+			.catch(console.error());
 	},
 };
 export default Storage;
