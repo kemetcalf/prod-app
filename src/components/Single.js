@@ -6,8 +6,10 @@ import { useEffect, useState } from "react";
 import Card from "./Card";
 import UpdateForm from "./UpdateForm";
 import Firestore from "../handlers/firestore";
+import Storage from "../handlers/storage";
 
 const { deleteDoc } = Firestore;
+const { deleteFile } = Storage;
 
 function useToggle() {
 	const [formState, setFormState] = useState(false);
@@ -30,6 +32,7 @@ const Single = () => {
 		try {
 			e.preventDefault();
 			await deleteDoc(item);
+			await deleteFile(item);
 			console.log(item);
 		} catch (e) {
 			console.error();
