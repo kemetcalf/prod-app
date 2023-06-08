@@ -1,10 +1,13 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useFirestoreContext } from "../context/FirestoreContext";
-import { useAuthContext } from "../context/AuthContext";
+// import { useAuthContext } from "../context/AuthContext";
 import { useEffect, useState } from "react";
 // import Firestore from "../handlers/firestore";
 import Card from "./Card";
 import UpdateForm from "./UpdateForm";
+import Firestore from "../handlers/firestore";
+
+const { deleteDoc } = Firestore;
 
 function useToggle() {
 	const [formState, setFormState] = useState(false);
@@ -23,13 +26,16 @@ const Single = () => {
 	// find() returns 1st obj in state.items arr that matches the given property (item) in this case by finding the item.id that matches the routerState.id returned by useLocation
 	const item = state.items.find((item) => item.id === routerState.id);
 
-	// const toggle = (bool) => dispatch({ type: "collapse", payload: { bool } });
+	const handleDelete = async (e) => {
+		try {
+			e.preventDefault();
+			await deleteDoc(item);
+			console.log(item);
+		} catch (e) {
+			console.error();
+		}
+	};
 
-	// TODO: handleOnChange to setInputs
-	// TODO: new handleOnSubmit to updateDocs
-	// const handleOnClick = async (e) => {
-	// 	await updateDoc({...state.inputs, title: })
-	// }
 	return (
 		<>
 			<button className="btn btn-link" onClick={() => navigate(-1)}>
@@ -41,7 +47,7 @@ const Single = () => {
 			<button type="button" className="btn btn-warning" onClick={toggle}>
 				Edit
 			</button>
-			<button type="button" className="btn btn-danger" onClick={() => {}}>
+			<button type="button" className="btn btn-danger" onClick={handleDelete}>
 				Delete
 			</button>
 			{formState && <UpdateForm />}
